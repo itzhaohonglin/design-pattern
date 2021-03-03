@@ -8,6 +8,7 @@
 
 # Maven files
 target/
+out
 
 # Intellij IDEA files
 *.iml
