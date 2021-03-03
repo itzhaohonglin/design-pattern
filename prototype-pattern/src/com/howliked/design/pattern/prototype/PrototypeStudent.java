@@ -4,6 +4,7 @@ import java.io.*;
 
 /**
  * 使用序列化方式clone
+ * 需实现Serializable接口
  */
 public class PrototypeStudent implements Cloneable,Serializable {
     private Long sid;
