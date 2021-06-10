@@ -1,7 +1,5 @@
 package com.howliked.design.pattern.singleton;
 
-import sun.security.jca.GetInstance;
-
 /**
  * 枚举单例:Effective Java
  * 既解决多线程问题,又解决反序列化问题
