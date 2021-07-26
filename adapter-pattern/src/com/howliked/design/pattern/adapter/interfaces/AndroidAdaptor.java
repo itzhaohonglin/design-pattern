@@ -1,4 +1,4 @@
-package com.howliked.design.pattern.adapter;
+package com.howliked.design.pattern.adapter.interfaces;
 
 public class AndroidAdaptor implements TypeCCharger {
     private LightCharger lightCharger;

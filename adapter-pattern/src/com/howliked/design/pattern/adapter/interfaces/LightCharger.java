@@ -1,4 +1,4 @@
-package com.howliked.design.pattern.adapter;
+package com.howliked.design.pattern.adapter.interfaces;
 
 /**
  * Light充电口
