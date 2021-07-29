@@ -1,30 +1,36 @@
 package com.howlike.design.pattern.interpreter.sql;
 
-public class InsertSQLExpression extends SQLExpression {
+public class UpdateSQLExpression extends SQLExpression {
     @Override
     public String interpret(Context context) {
-        StringBuilder insert = new StringBuilder();
-        insert.append("insert into ")
-                .append(context.getTableName());
+        StringBuilder update = new StringBuilder();
+        update.append("update ")
+                .append(context.getTableName())
+                .append(" set ");
 
-        // 解析 key value
-        StringBuilder keys = new StringBuilder();
         StringBuilder values = new StringBuilder();
-        keys.append("(");
-        values.append("(");
         for (String key : context.getParams().keySet()) {
-            keys.append(key).append(",");
-            values.append("'").append(context.getParams().get(key)).append("',");
+            values.append(key)
+                    .append(" = '")
+                    .append(context.getParams().get(key))
+                    .append("',");
         }
-        keys = keys.replace(keys.length() - 1, keys.length(), ")");
-        values = values.replace(values.length() - 1, values.length(), ")");
 
-        // 拼接 keys values
-        insert.append(keys)
-                .append(" values ")
-                .append(values);
+        StringBuilder wheres = new StringBuilder();
+        wheres.append(" 1 = 1 ");
+        for (String key : context.getWheres().keySet()) {
+            wheres.append(" and ")
+                    .append(key)
+                    .append(" = '")
+                    .append(context.getWheres().get(key))
+                    .append("'");
+        }
 
-        System.out.println("Insert SQL : " + insert.toString());
-        return insert.toString();
+        update.append(values.substring(0, values.length() - 1))
+                .append(" where ")
+                .append(wheres);
+
+        System.out.println("Update SQL : " + update.toString());
+        return update.toString();
     }
 }

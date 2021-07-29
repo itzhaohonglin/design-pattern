@@ -1,30 +1,21 @@
 package com.howlike.design.pattern.interpreter.sql;
 
-public class UpdateSQLExpression extends SQLExpression {
+public class DeleteSQLExpression extends SQLExpression {
     @Override
     public String interpret(Context context) {
-        StringBuilder insert = new StringBuilder();
-        insert.append("insert into ")
-                .append(context.getTableName());
-
-        // 解析 key value
-        StringBuilder keys = new StringBuilder();
-        StringBuilder values = new StringBuilder();
-        keys.append("(");
-        values.append("(");
-        for (String key : context.getParams().keySet()) {
-            keys.append(key).append(",");
-            values.append("'").append(context.getParams().get(key)).append("',");
+        StringBuilder delete = new StringBuilder();
+        delete.append("delete from ")
+                .append(context.getTableName())
+                .append(" where ")
+                .append(" 1 = 1");
+        for (String key : context.getWheres().keySet()) {
+            delete.append(" and ")
+                    .append(key)
+                    .append(" = '")
+                    .append(context.getWheres().get(key))
+                    .append("'");
         }
-        keys = keys.replace(keys.length() - 1, keys.length(), ")");
-        values = values.replace(values.length() - 1, values.length(), ")");
-
-        // 拼接 keys values
-        insert.append(keys)
-                .append(" values ")
-                .append(values);
-
-        System.out.println("Insert SQL : " + insert.toString());
-        return insert.toString();
+        System.out.println("Delete SQL : " + delete.toString());
+        return delete.toString();
     }
 }
